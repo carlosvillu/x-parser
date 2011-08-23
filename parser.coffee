@@ -14,14 +14,15 @@ readStream.on 'data', (data) ->
   for line in lines
     do(line) ->
       datas = line.split(';')
-      video =
-        url: datas[0]
-        title: datas[1]
-        duration: datas[2]
-        thumb: datas[3]
-        object: datas[4]
-        tags: "#{datas[5]}".split(',')
-        category: datas[6]
+      if datas.length is 7
+        video =
+          url: datas[0]
+          title: datas[1]
+          duration: datas[2]
+          thumb: datas[3]
+          object: datas[4]
+          tags: "#{datas[5]}".split(',')
+          category: datas[6]
       saveVideo video
 saveVideo = (video)->
   log(inspect video)
