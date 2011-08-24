@@ -1,4 +1,7 @@
+#! /usr/bin/env coffee
+
 fs = require 'fs'
+{Video} = require './model/video'
 {log, inspect} = require 'util'
 
 readStream = fs.createReadStream('./xvideos.csv')
@@ -23,6 +26,9 @@ readStream.on 'data', (data) ->
           object: datas[4]
           tags: "#{datas[5]}".split(',')
           category: datas[6]
-      saveVideo video
+          source: 'xvideos'
+        saveVideo video
 saveVideo = (video)->
-  log(inspect video)
+  Video.create video, (error, video) ->
+    throw error if error
+    log 'Save the video %s', video[0].title
