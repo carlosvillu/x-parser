@@ -7,7 +7,7 @@ tile = ''
 readStream.on 'data', (data) ->
   readStream.pause()
   lines = data.toString('utf8', 0).split('\n')
-  if data[data.length] isnt '0A'
+  if data[data.length] isnt '0A' # BreakLine in Hex
     lines[0] = tile + lines[0]
     tile = lines[lines.length]
 
