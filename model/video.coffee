@@ -3,7 +3,7 @@ TagSchema = require('./tag').TagSchema
 
 exports.VideoSchema = VideoSchema = new mongoose.Schema({
   url: String
-  , duration: Number
+  , duration: String
   , thumb: String
   , object: String
   , tags: [TagSchema]
@@ -11,8 +11,7 @@ exports.VideoSchema = VideoSchema = new mongoose.Schema({
   , source: String
 })
 
-VideoSchema.path('duration').set (v)->
-  parts = v.split ' ';
-  return parts[0]
-
+VideoSchema.path('duration').set((v)->
+  return parseInt v
+)
 exports.Video =  mongoose.model('Video', VideoSchema)
