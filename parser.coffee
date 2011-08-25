@@ -24,11 +24,13 @@ readStream.on 'data', (data) ->
           duration: datas[2]
           thumb: datas[3]
           object: datas[4]
-          tags: "#{datas[5]}".split(',')
+          tags: {tag: tag} for tag in "#{datas[5]}".split(',')
           category: datas[6]
           source: 'xvideos'
         saveVideo video
+  readStream.resume()
+
 saveVideo = (video)->
   Video.create video, (error, video) ->
     throw error if error
-    log 'Save the video %s', video[0].title
+    log "Save the video #{video.get('title')}"
